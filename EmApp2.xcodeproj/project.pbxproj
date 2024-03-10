@@ -11,6 +11,7 @@
 		DD15D1B82B9BC0A5007E04C1 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15D1B72B9BC0A5007E04C1 /* ChatViewController.swift */; };
 		DD15D1BC2B9BD3BA007E04C1 /* StorageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15D1BB2B9BD3BA007E04C1 /* StorageManager.swift */; };
 		DD15D1BE2B9C47E1007E04C1 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15D1BD2B9C47E1007E04C1 /* ConversationTableViewCell.swift */; };
+		DD6A940A2B9E4EBB00528B0C /* NewConversationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6A94092B9E4EBB00528B0C /* NewConversationCell.swift */; };
 		DD892E442B9A8BCE00666495 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD892E432B9A8BCE00666495 /* AppDelegate.swift */; };
 		DD892E462B9A8BCE00666495 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD892E452B9A8BCE00666495 /* SceneDelegate.swift */; };
 		DD892E482B9A8BCE00666495 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD892E472B9A8BCE00666495 /* ConversationsViewController.swift */; };
@@ -35,6 +36,7 @@
 		DD15D1B72B9BC0A5007E04C1 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
 		DD15D1BB2B9BD3BA007E04C1 /* StorageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageManager.swift; sourceTree = "<group>"; };
 		DD15D1BD2B9C47E1007E04C1 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
+		DD6A94092B9E4EBB00528B0C /* NewConversationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationCell.swift; sourceTree = "<group>"; };
 		DD892E402B9A8BCE00666495 /* EmApp2.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmApp2.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD892E432B9A8BCE00666495 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		DD892E452B9A8BCE00666495 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -135,6 +137,7 @@
 				DD892E5C2B9A8D3A00666495 /* Storyboards */,
 				DD892E4C2B9A8BD000666495 /* Assets.xcassets */,
 				DD15D1BD2B9C47E1007E04C1 /* ConversationTableViewCell.swift */,
+				DD6A94092B9E4EBB00528B0C /* NewConversationCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -300,6 +303,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DD892E5E2B9A8EB200666495 /* LoginViewController.swift in Sources */,
+				DD6A940A2B9E4EBB00528B0C /* NewConversationCell.swift in Sources */,
 				DD892E6F2B9B78B200666495 /* DatabaseManager.swift in Sources */,
 				DD892E602B9A8EC300666495 /* RegisterViewController.swift in Sources */,
 				DD892E662B9A8F0600666495 /* NewConversationViewController.swift in Sources */,

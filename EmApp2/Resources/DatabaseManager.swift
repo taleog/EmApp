@@ -386,14 +386,14 @@ extension DatabaseManager {
                       let type = dictionary["type"] as? String,
                       let dateString = dictionary["date"] as? String,
                       let date = ChatViewController.dateFormatter.date(from: dateString) else {
-                            return nil
+                    return nil
                 }
                 
                 var kind: MessageKind?
                 if type == "photo" {
                     //photo
                     guard let imageUrl = URL(string: content),
-                          let placeHolder = UIImage(systemName: "plus") else {
+                          let placeHolder = UIImage(systemName: "play.rectangle") else {
                         return nil
                     }
                     let media = Media(url: imageUrl,
@@ -403,6 +403,22 @@ extension DatabaseManager {
                     
                     kind = .photo(media)
                 }
+            
+              
+                  else if type == "video" {
+                        //photo
+                        guard let videoUrl = URL(string: content),
+                              let placeHolder = UIImage(systemName: "play.rectangle") else {
+                            return nil
+                        }
+                        let media = Media(url: videoUrl,
+                                          image: nil,
+                                          placeholderImage: placeHolder,
+                                          size: CGSize(width: 300, height: 300))
+                        
+                        kind = .video(media)
+                }
+                    
                 else {
                     kind = .text(content)
                 }
@@ -427,6 +443,7 @@ extension DatabaseManager {
             
         })
     }
+                                                 
     
     //Sends a message with target convo and message
     public func sendMessage(to conversation: String, otherUserEmail: String, name: String, newMessage: Message, completion: @escaping (Bool) -> Void) {
@@ -467,7 +484,11 @@ extension DatabaseManager {
                     message = targetUrlString
                 }
                 break
-            case .video(_):
+            case .video(let mediaItem):
+                if let targetUrlString = mediaItem.url?.absoluteString {
+                    message = targetUrlString
+                }
+                
                 break
             case .location(_):
                 break

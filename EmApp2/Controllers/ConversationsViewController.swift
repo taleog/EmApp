@@ -98,10 +98,9 @@ class ConversationsViewController: UIViewController {
         present(navVC, animated: true)
     }
 
-    private func createNewConversation(result: [String: String]) {
-        guard let name = result["name"], let email = result["email"] else {
-            return
-        }
+    private func createNewConversation(result: SearchResult) {
+        let name = result.name
+        let email = result.email
 
         DatabaseManager.shared.conversationExists(with: email) { [weak self] exists, conversationId in
             DispatchQueue.main.async {
