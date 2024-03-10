@@ -88,26 +88,39 @@ class ConversationsViewController: UIViewController {
         
     }
     
-    @objc private func didTapComposeButton(){
+    @objc private func didTapComposeButton() {
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
+            self?.spinner.show(in: self?.view ?? UIView()) // Show a spinner here
             self?.createNewConversation(result: result)
         }
         let navVC = UINavigationController(rootViewController: vc)
         present(navVC, animated: true)
     }
-    
+
     private func createNewConversation(result: [String: String]) {
         guard let name = result["name"], let email = result["email"] else {
             return
         }
-        
-        let vc = ChatViewController(with: email, id: nil)
-        vc.isNewConversation = true
-        vc.title = name
-        vc.navigationItem.largeTitleDisplayMode = .never
-        navigationController?.pushViewController(vc, animated: true)
+
+        DatabaseManager.shared.conversationExists(with: email) { [weak self] exists, conversationId in
+            DispatchQueue.main.async {
+                self?.spinner.dismiss() // Dismiss the spinner here
+
+                // Delay the presentation of ChatViewController
+                let vc = ChatViewController(with: email, id: exists ? conversationId : nil)
+                vc.isNewConversation = !exists
+                vc.title = name
+                vc.navigationItem.largeTitleDisplayMode = .never // Set the title display mode
+                self?.navigationController?.pushViewController(vc, animated: true)
+            }
+        }
     }
+
+
+
+
+
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()

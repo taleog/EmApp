@@ -322,7 +322,7 @@ extension DatabaseManager {
                       let date = latestMessage["date"] as? String,
                       let message = latestMessage["message"] as? String,
                       let isRead = latestMessage["is_read"] as? Bool else {
-                            return nil
+                    return nil
                 }
                 let latestMessageObject = LatestMessage(date: date,
                                                         text: message,
@@ -337,6 +337,37 @@ extension DatabaseManager {
             
         })
     }
+    
+    
+    public func conversationExists(with targetUserEmail: String, completion: @escaping (Bool, String?) -> Void) {
+        let safeTargetEmail = DatabaseManager.safeEmail(emailAddress: targetUserEmail)
+        
+        guard let currentUserEmail = UserDefaults.standard.value(forKey: "email") as? String else {
+            completion(false, nil)
+            return
+        }
+        
+        let safeCurrentUserEmail = DatabaseManager.safeEmail(emailAddress: currentUserEmail)
+        let userConversationsPath = "\(safeCurrentUserEmail)/conversations"
+        
+        database.child(userConversationsPath).observeSingleEvent(of: .value, with: { snapshot in
+            guard let userConversations = snapshot.value as? [[String: Any]] else {
+                completion(false, nil)
+                return
+            }
+            
+            let existingConversationId = userConversations.first { conversation in
+                let conversationId = conversation["id"] as? String
+                return conversationId?.contains(safeTargetEmail) ?? false
+            }?["id"] as? String
+            
+            completion(existingConversationId != nil, existingConversationId)
+        })
+    }
+    
+    
+
+
     
     //Gets all messages for a given convo
     public func getAllMessagesForConversation(with id: String, completion: @escaping (Result<[Message], Error>) -> Void) {
