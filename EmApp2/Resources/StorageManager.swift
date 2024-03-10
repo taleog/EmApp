@@ -19,6 +19,7 @@ final class StorageManager {
      */
     
     public typealias UploadPictureCompletion = (Result<String, Error>) -> Void
+    
     /// Upload picture to firebase storage, returns completion with URL download string
     public func uploadProfilePicture(with data: Data, fileName: String, completion: @escaping UploadPictureCompletion) {
         storage.child("images/\(fileName)").putData(data, metadata: nil, completion: { metadata, error in
@@ -29,6 +30,30 @@ final class StorageManager {
             }
             
             self.storage.child("images/\(fileName)").downloadURL(completion: { url, error in
+                guard let url = url else {
+                    print("")
+                    completion(.failure(StorageErrors.failedToGetDownloadUrl))
+                    return
+                }
+                
+                let urlString = url.absoluteString
+                print("download url returned: \(urlString)")
+                completion(.success(urlString))
+            })
+            
+        })
+    }
+    
+    // upload image from convo
+    public func uploadMessagePhoto(with data: Data, fileName: String, completion: @escaping UploadPictureCompletion) {
+        storage.child("message_images/\(fileName)").putData(data, metadata: nil, completion: { metadata, error in
+            guard error == nil else {
+                //failed
+                completion(.failure(StorageErrors.failedToUpload))
+                return
+            }
+            
+            self.storage.child("message_images/\(fileName)").downloadURL(completion: { url, error in
                 guard let url = url else {
                     print("")
                     completion(.failure(StorageErrors.failedToGetDownloadUrl))
